@@ -20,7 +20,7 @@ conn.connect(function(error, results) {
   }
   console.log('Connected to MySQL');
 });
-
+var ckb = 0;
 function filter(id){
   var url = 'http://www.lagou.com/jobs/' + id + '.html'
   http.get(url, function(res){
@@ -50,6 +50,7 @@ function filter(id){
       // fs.writeFileSync("b.xlsx", file, "binary")
       var insertSQL = 'INSERT INTO job(jobName,salary,company,jobAddr,pubTime,url) VALUES(?,?,?,?,?,?)'
       var jobParams = [job, salary, company, job_addr, publish_time, url]
+      console.log(ckb + 1);
       conn.query(insertSQL, jobParams, function(err, result){
         if(err){
          console.log('[INSERT ERROR] - ',err.message);
@@ -69,7 +70,7 @@ function filter(id){
 }
 
 for(var j=2; j<10; j++){
-  var post_data = 'first=false&pn='+j+'&kd=UI%E8%AE%BE%E8%AE%A1%E5%B8%88'
+  var post_data = 'first=false&pn='+j+'&kd=.NET'
   var options = {
     method: 'POST',
     url: 'http://www.lagou.com/jobs/positionAjax.json?px=new&city=%E6%9D%AD%E5%B7%9E',
